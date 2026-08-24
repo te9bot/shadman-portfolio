@@ -138,9 +138,16 @@ src/
 
 ## Deployment
 
-`npm run build` emits a fully static `dist/`. `base` is `./` in
-`vite.config.ts`, so the build works from a domain root or a subdirectory
-(GitHub Pages project sites included) with no changes.
+**Live at https://te9bot.github.io/shadman-portfolio/**
+
+Every push to `main` triggers `.github/workflows/deploy.yml`, which runs
+`npm ci && npm run build` and publishes `dist/` to GitHub Pages.
+
+`base` is `./` in `vite.config.ts` and photograph paths in
+`src/data/photographs.ts` carry no leading slash, so the same build works from
+a domain root or from a project subdirectory without changes. If you move the
+site to a custom domain, update the absolute `canonical`, `og:url` and
+`og:image` URLs in `index.html`.
 
 ---
 
