@@ -1,0 +1,223 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: calc(var(--nav-h) + clamp(3rem, 9vh, 7rem));
+  padding-bottom: clamp(3rem, 8vh, 6rem);
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: clamp(1.4rem, 3vw, 2.25rem);
+}
+
+.hero__eyebrow::before {
+  content: '';
+  width: 22px;
+  height: 1px;
+  background: var(--accent-mid);
+}
+
+.hero__title {
+  font-size: var(--fs-hero);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 0.92;
+  margin-bottom: clamp(1.5rem, 3.5vw, 2.75rem);
+  max-width: 15ch;
+}
+
+/* Words rise into place once, staggered, after the preloader clears. */
+.hero__word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-right: 0.22em;
+  margin-right: -0.06em;
+}
+
+.hero__word > span {
+  display: inline-block;
+  transform: translate3d(0, 105%, 0);
+  transition: transform 900ms var(--ease);
+}
+
+.hero__word:last-child > span {
+  background: linear-gradient(96deg, var(--text) 30%, var(--accent-mid) 130%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.is-ready .hero__word > span {
+  transform: translate3d(0, 0, 0);
+}
+
+.is-ready .hero__word:nth-child(2) > span {
+  transition-delay: 80ms;
+}
+
+.is-ready .hero__word:nth-child(3) > span {
+  transition-delay: 160ms;
+}
+
+.hero__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.62fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: end;
+}
+
+.hero__statement {
+  max-width: 56ch;
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+  color: var(--text-2);
+  font-weight: 300;
+  letter-spacing: -0.012em;
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  transition:
+    opacity 800ms var(--ease) 340ms,
+    transform 800ms var(--ease) 340ms;
+}
+
+.hero__statement em {
+  font-style: normal;
+  color: var(--text);
+}
+
+.is-ready .hero__statement {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.hero__meta {
+  display: grid;
+  gap: 1.1rem;
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  transition:
+    opacity 800ms var(--ease) 460ms,
+    transform 800ms var(--ease) 460ms;
+}
+
+.is-ready .hero__meta {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.hero__meta-row {
+  display: grid;
+  gap: 0.3rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border);
+}
+
+.hero__meta-row dt {
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-4);
+}
+
+.hero__meta-row dd {
+  font-size: 0.9375rem;
+  color: var(--text-2);
+}
+
+.hero__scroll {
+  margin-top: clamp(2.5rem, 7vh, 5rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-4);
+  opacity: 0;
+  transition: opacity 800ms var(--ease) 620ms;
+  align-self: flex-start;
+}
+
+.is-ready .hero__scroll {
+  opacity: 1;
+}
+
+.hero__scroll-track {
+  position: relative;
+  width: 54px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.hero__scroll-track::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform-origin: 0 50%;
+  animation: hero-scroll 2.6s var(--ease-soft) infinite;
+}
+
+@keyframes hero-scroll {
+  0% {
+    transform: translateX(-100%) scaleX(0.5);
+  }
+  60%,
+  100% {
+    transform: translateX(100%) scaleX(0.5);
+  }
+}
+
+@media (max-width: 900px) {
+  .hero__body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.25rem;
+    align-items: start;
+  }
+
+  .hero__title {
+    max-width: 100%;
+  }
+
+  .hero__meta {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    min-height: auto;
+    padding-top: calc(var(--nav-h) + 4.5rem);
+    padding-bottom: 4rem;
+  }
+
+  .hero__meta {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__word > span,
+  .hero__statement,
+  .hero__meta,
+  .hero__scroll {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+
+  .hero__scroll-track::after {
+    animation: none;
+    transform: scaleX(0.4);
+  }
+}

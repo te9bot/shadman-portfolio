@@ -1,0 +1,126 @@
+.honors {
+  margin-top: -0.5rem;
+}
+
+.honors__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+  align-items: start;
+  padding: clamp(1.5rem, 3.2vw, 2.4rem) 0;
+  border-bottom: 1px solid var(--border);
+  transition: background var(--dur-slow) var(--ease);
+}
+
+.honors__item::before {
+  /* thin green indicator that grows on hover */
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 2px;
+  height: 0;
+  background: var(--accent);
+  transform: translateY(-50%);
+  transition: height 460ms var(--ease);
+  border-radius: 2px;
+}
+
+.honors__item:hover::before,
+.honors__item:focus-within::before {
+  height: calc(100% - clamp(2rem, 4.4vw, 3rem));
+}
+
+.honors__item:hover {
+  background: linear-gradient(90deg, rgba(61, 220, 151, 0.028), transparent 42%);
+}
+
+.honors__num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: var(--text-4);
+  transition:
+    transform 460ms var(--ease),
+    color 460ms var(--ease);
+  padding-top: 0.35rem;
+}
+
+.honors__item:hover .honors__num,
+.honors__item:focus-within .honors__num {
+  transform: translateX(10px);
+  color: var(--accent);
+}
+
+.honors__main {
+  display: grid;
+  gap: 0.65rem;
+  align-content: start;
+}
+
+.honors__title {
+  font-size: clamp(1.02rem, 1.75vw, 1.3rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.32;
+  color: var(--text-2);
+  transition: color 460ms var(--ease);
+}
+
+.honors__item:hover .honors__title,
+.honors__item:focus-within .honors__title {
+  color: var(--text);
+}
+
+.honors__scope {
+  justify-self: start;
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-4);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.25rem 0.65rem;
+  transition:
+    color 460ms var(--ease),
+    border-color 460ms var(--ease);
+}
+
+.honors__item:hover .honors__scope,
+.honors__item:focus-within .honors__scope {
+  color: var(--accent-mid);
+  border-color: var(--accent-line);
+}
+
+.honors__desc {
+  font-size: 0.9375rem;
+  line-height: 1.72;
+  color: var(--text-3);
+  max-width: 52ch;
+  padding-top: 0.25rem;
+  transition: color 460ms var(--ease);
+}
+
+.honors__item:hover .honors__desc,
+.honors__item:focus-within .honors__desc {
+  color: var(--text-2);
+}
+
+@media (max-width: 860px) {
+  .honors__item {
+    grid-template-columns: 2.75rem minmax(0, 1fr);
+    gap: 0.75rem 1rem;
+  }
+
+  .honors__desc {
+    grid-column: 2;
+    max-width: none;
+    padding-top: 0;
+  }
+
+  .honors__num {
+    padding-top: 0.2rem;
+  }
+}
